@@ -22,7 +22,7 @@ We have support for Yelp-API with suggestions and real time chat.
 
 ## Procedure :
     1. Build and deploy the frontend of the application
-      a. Implement a chat user interface, where the user can write messages and get responses back. You can use open source libraries and frameworks that give you this UI and          UX out of the box.
+      a. Implement a chat user interface, where the user can write messages and get responses back. You can use open source libraries and frameworks that give you this UI UX           out of the box.
       b. Host your frontend in an AWS S3 bucket i. Set the bucket up for website hosting ii. https://docs.aws.amazon.com/AmazonS3/latest/dev/HostingWebsiteOnS3Setup.html
     
     2. Build the API for your cloud application.
@@ -44,20 +44,9 @@ We have support for Yelp-API with suggestions and real time chat.
        You only need to store RestaurantID and Cuisine for each restaurant.
     7. Build a suggestions module, that is decoupled from the Lex chatbot.
 
-        Create a new Lambda function (LF2) that acts as a queue worker. Whenever it is invoked it
-        pulls a message from the SQS queue (Q1),
-        gets a random restaurant recommendation for the cuisine collected through conversation from ElasticSearch and DynamoDB,
-        formats them and
-        sends them over text message to the phone number included in the SQS message, using SNS (https://docs.aws.amazon.com/sns/latest/dg/SMSMessages.html).
+        Create a new Lambda function (LF2) that acts as a queue worker. Whenever it is invoked it pulls a message from the SQS queue (Q1),gets a random restaurant                      recommendation for the cuisine collected through conversation from ElasticSearch and DynamoDB, formats them and sends them over text message to the phone number              included in the SQS message, using SNS (https://docs.aws.amazon.com/sns/latest/dg/SMSMessages.html).
         i. Use the DynamoDB table “yelp-restaurants” (which you created from Step 1) to fetch more information about the restaurants (restaurant name, address, etc.), since              the restaurants stored in ElasticSearch will have only a small subset of fields from each restaurant.
         ii. Modify the rest of the LF2 function if necessary to send the user text/email.
             Set up a CloudWatch event trigger that runs every minute and invokes the Lambda function as a result:                                                                         https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLabdaSchedule.html. This automates the queue worker Lambda to poll and process suggestion requests               on its own.
-
-
-
-
-      
-
-      
       
 
