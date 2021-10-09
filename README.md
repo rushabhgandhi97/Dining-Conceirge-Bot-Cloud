@@ -5,7 +5,7 @@
 
 
 ## Chat Architecture Diagram
-![diagram](images/architecture_diagram.png)
+![diagram](images/Architecture.png)
 
 ## Chat Example
 ![example](images/chat_example.png)
