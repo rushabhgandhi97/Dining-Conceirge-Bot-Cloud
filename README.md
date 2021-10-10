@@ -35,6 +35,7 @@ We have support for Yelp-API with suggestions and real time chat.
     2. Build the API for your cloud application.
     3. Build a Dining Concierge chatbot using Amazon Lex. 
       a. Create a new bot using the Amazon Lex service. Read up the documentation on all things Lex, for more information:                                                               https://docs.aws.amazon.com/lex/latest/dg/getting-started.html
+![example](screenshot/API_Gateway_Flow.png)
 
       b. Create a Lambda function (LF1) and use it as a code hook for Lex, which essentially entails the invocation of your Lambda before Lex responds to any of your requests -- this gives you the chance to manipulate and validate parameters as well as format the bot’s responses. More documentation on Lambda code hooks at the following, link: https://docs.aws.amazon.com/lex/latest/dg/using-lambda.html
       
