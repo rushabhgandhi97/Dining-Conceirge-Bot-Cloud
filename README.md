@@ -23,7 +23,7 @@ We have support for Yelp-API with suggestions and real time chat.
     4. Amazon SQS - to store user requests on a first-come bases
     5. ElasticSearch Service - To quickly get restaurant ids based on the user preferences of cuisine collected from SQS
     6. DynamoDB - To store the restaurant data collected using Yelp API
-    7. Amazon SNS - to send restaurant suggestions to users through SMS
+    7. Amazon SES - to send restaurant suggestions to users through email
     8. Lambda - To send data from the frontend to API and API to Lex, validation, collecting restaurant data, sending suggestions using SNS.
     9. Yelp API - To get suggestions for food
 
@@ -48,8 +48,8 @@ We have support for Yelp-API with suggestions and real time chat.
        Create an ElasticSearch index called “restaurants”
        Create an ElasticSearch type under the index “restaurants” called “Restaurant”
        Store partial information for each restaurant scraped in ElasticSearch under the “restaurants” index, where each entry has a “Restaurant” data type. This data type will be of composite type stored as JSON in ElasticSearch. https://www.elastic.co/guide/en/elasticsearch/guide/current/mapping.html. You only need to store RestaurantID and Cuisine for each restaurant.
-    7. Build a suggestions module, that is decoupled from the Lex chatbot.Create a new Lambda function (LF2) that acts as a queue worker. Whenever it is invoked it pulls a message from the SQS queue (Q1),gets a random restaurant recommendation for the cuisine collected through conversation from ElasticSearch and DynamoDB, formats them and sends them over text message to the phone number included in the SQS message, using SNS (https://docs.aws.amazon.com/sns/latest/dg/SMSMessages.html).
+    7. Build a suggestions module, that is decoupled from the Lex chatbot.Create a new Lambda function (LF2) that acts as a queue worker. Whenever it is invoked it pulls a message from the SQS queue (Q1),gets a random restaurant recommendation for the cuisine collected through conversation from ElasticSearch and DynamoDB, formats them and sends them over text message to the phone number included in the SQS message, using SES.
         i. Use the DynamoDB table “yelp-restaurants” (which you created from Step 1) to fetch more information about the restaurants (restaurant name, address, etc.), since the restaurants stored in ElasticSearch will have only a small subset of fields from each restaurant.
         ii. Modify the rest of the LF2 function if necessary to send the user text/email. Set up a CloudWatch event trigger that runs every minute and invokes the Lambda function as a result:https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLabdaSchedule.html. This automates the queue worker Lambda to poll and process suggestion requests on its own.
-      
+  ![example](screenshot/email_response.png)
 
