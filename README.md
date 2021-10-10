@@ -1,7 +1,7 @@
 # Dining-Conceirge-Bot-Cloud
 ## Welcome to our Repository
 
-### S3 Bucket Link :
+### S3 Bucket Link :  http://dinecon.s3-website-us-east-1.amazonaws.com/
 
 
 ## Chat Architecture Diagram
