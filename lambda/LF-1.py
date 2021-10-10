@@ -30,8 +30,12 @@ def lambda_handler(event, context):
             'city': {
                 'DataType': 'String',
                 'StringValue': identifiedSlots['city']
+            },
+            'emailL':{
+                'DataType' : 'String',
+                'StringValue': identifiedSlots['emailL']
             }
-           
+       
         }
         answer = "You're all set. Once I am ready I will send you all the details over text Good day:D"
         sqsClient.send_message(QueueUrl=sqsQueueUrl, MessageBody="Sending message from lex", MessageAttributes=messageAttributes)
